@@ -21,16 +21,6 @@ class UserManager(BaseUserManager):
 
         return self.create_user(phone_number, national_id, password, **extra_fields)
 
-class GeneratedCode(models.Model):
-    code = models.CharField(max_length=8, unique=True,verbose_name='کد')
-    created_at = models.DateTimeField(auto_now_add=True,verbose_name='تاریخ تولید')
-    assigned = models.BooleanField(default=False,verbose_name='اختصاص داده شده')
-    is_active= models.BooleanField(default=False,verbose_name='فعال/غیر فعال')
-    class Meta:
-        verbose_name = 'کد جدید'
-        verbose_name_plural ='کد های تولید شده'
-    def __str__(self):
-        return self.code
     
 class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=11, unique=True,verbose_name='شماره تماس')
@@ -39,16 +29,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     email=models.EmailField(verbose_name='ایمیل',unique=True,null=False,blank=False)
     national_id=models.CharField(verbose_name='کد ملی',max_length=10,unique=True,null=False,blank=False)
     card_number=models.CharField(max_length=16,verbose_name='شماره کارت',null=False,blank=False)
-    phone=models.CharField(max_length=11,verbose_name='شماره تماس')
     address=models.CharField(max_length=255,verbose_name='ادرس')
     is_active = models.BooleanField(default=1,verbose_name='فعال/غیر فعال')
     is_staff = models.BooleanField(default=False,verbose_name='کارمند')
     is_superuser = models.BooleanField(default=False)
-    code = models.OneToOneField(GeneratedCode, null=True, blank=True, on_delete=models.SET_NULL,verbose_name='کد')
 
     objects = UserManager()
     USERNAME_FIELD = 'phone_number'
-    REQUIRED_FIELDS = ['full_name', 'national_id']
+    REQUIRED_FIELDS = ['name','family', 'national_id']
 
     groups = models.ManyToManyField(
         'auth.Group',
@@ -82,7 +70,6 @@ class OTP(models.Model):
             if OTP.objects.filter(id=self.id).exists():
                 self.delete()
             return False
-            super().is_valid(*args, **kwargs)
         return True
 
     def generate_expiration(self):
