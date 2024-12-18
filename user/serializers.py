@@ -23,6 +23,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     def validate_email(self, value):
         if value and '@' not in value:
             raise serializers.ValidationError('email field is invalid')
+        return value
 
 class OTPRequestSerializer(serializers.Serializer):
     phone_number = serializers.CharField(max_length=11)
