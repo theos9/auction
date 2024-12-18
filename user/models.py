@@ -6,9 +6,9 @@ import random
 class UserManager(BaseUserManager):
     def create_user(self, phone_number, national_id, password=None, **extra_fields):
         if not phone_number:
-            raise ValueError('شماره تماس باید وارد شود')
+            raise ValueError('Entering the phone number is required')
         if not national_id:
-            raise ValueError('کد ملی باید وارد شود')
+            raise ValueError('Entering the national id is required')
 
         user = self.model(phone_number=phone_number, national_id=national_id, **extra_fields)
         user.set_password(password)
@@ -23,16 +23,16 @@ class UserManager(BaseUserManager):
 
     
 class User(AbstractBaseUser, PermissionsMixin):
-    phone_number = models.CharField(max_length=11, unique=True,verbose_name='شماره تماس')
-    name=models.CharField(max_length=20,verbose_name='نام',null=False,blank=False)
-    family=models.CharField(max_length=20,verbose_name='نام خانوادگی',null=False,blank=False)
-    email=models.EmailField(verbose_name='ایمیل',unique=True,null=False,blank=False)
-    national_id=models.CharField(verbose_name='کد ملی',max_length=10,unique=True,null=False,blank=False)
-    card_number=models.CharField(max_length=16,verbose_name='شماره کارت',null=False,blank=False)
-    address=models.CharField(max_length=255,verbose_name='ادرس')
-    is_active = models.BooleanField(default=1,verbose_name='فعال/غیر فعال')
-    is_staff = models.BooleanField(default=False,verbose_name='کارمند')
-    is_superuser = models.BooleanField(default=False)
+    phone_number = models.CharField(max_length=11, unique=True,verbose_name='phone number')
+    name=models.CharField(max_length=20,verbose_name='name',null=False,blank=False)
+    family=models.CharField(max_length=20,verbose_name='last name',null=False,blank=False)
+    email=models.EmailField(verbose_name='email',unique=True,null=False,blank=False)
+    national_id=models.CharField(verbose_name='national id',max_length=10,unique=True,null=False,blank=False)
+    card_number=models.CharField(max_length=16,verbose_name='card number',null=False,blank=False)
+    address=models.CharField(max_length=255,verbose_name='address')
+    is_active = models.BooleanField(default=1,verbose_name='active/inactive')
+    is_staff = models.BooleanField(default=False,verbose_name='staff')
+    is_superuser = models.BooleanField(default=False,verbose_name='owner')
 
     objects = UserManager()
     USERNAME_FIELD = 'phone_number'
@@ -50,8 +50,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     class Meta:
-        verbose_name = 'کاربر'
-        verbose_name_plural ='کاربرها'
+        verbose_name = 'User'
+        verbose_name_plural ='Users'
         
     def __str__(self):
         return f"{self.name} {self.family}"
@@ -62,8 +62,8 @@ class OTP(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateTimeField()
     class Meta:
-        verbose_name = 'رمز یکبار مصرف'
-        verbose_name_plural ='رمز یکبار مصرف'
+        verbose_name = 'Otp'
+        verbose_name_plural ='Otp'
     
     def is_valid(self):
         if timezone.now() > self.expires_at:
