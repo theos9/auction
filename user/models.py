@@ -74,3 +74,13 @@ class OTP(models.Model):
 
     def generate_expiration(self):
         self.expires_at = timezone.now() + timezone.timedelta(minutes=15)
+
+class AuctionsPermission(models.Model):
+    user= models.ForeignKey(User,on_delete=models.CASCADE,verbose_name='user')
+    auctions=models.ForeignKey('auc.AuctionModel',on_delete=models.CASCADE,verbose_name='auctions')
+    permission=models.BooleanField(default=False,verbose_name='permission')
+    class Meta:
+        verbose_name = 'Auction access'
+        verbose_name_plural = 'accesses'
+    def __str__(self):
+        return f'{self.auctions} - {self.permission}'
