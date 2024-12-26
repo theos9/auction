@@ -1,9 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import AdminPasswordChangeForm
-from.models import User, OTP
+from.models import User, OTP,AuctionsPermission
 
-
+class BidInline(admin.TabularInline):
+    model = AuctionsPermission
+    can_delete=False
+    extra = 1
 @admin.register(User)
 class UserAdminPage(UserAdmin):
     change_password_form= AdminPasswordChangeForm
@@ -12,6 +15,7 @@ class UserAdminPage(UserAdmin):
     search_fields=['national_id','phone_number','family']
     list_filter=['is_active']
     ordering = ('phone_number',)
+    inlines=[BidInline]
     fieldsets=(
         ('User',{'fields': ('phone_number','password')}),
         ('Personal info',{'fields': ('name','family','national_id','email','card_number','address')}),
