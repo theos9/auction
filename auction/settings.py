@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'auc',
+    'ticket'
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
