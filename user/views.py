@@ -1,5 +1,6 @@
 from rest_framework import status, generics
-from .serializers import RegisterSerializer,OTPRequestSerializer,LoginSerializer
+from rest_framework.permissions import IsAuthenticated
+from .serializers import RegisterSerializer,OTPRequestSerializer,LoginSerializer,UpdateProfileSerializer
 from .otp import OtpGenerator
 from rest_framework.mixins import CreateModelMixin
 from .sms import send_sms
@@ -74,3 +75,11 @@ class LoginView(generics.GenericAPIView,CreateModelMixin):
             'access_token': access_token,
             'refresh_token': refresh_token,
         }, status=status.HTTP_200_OK)
+class UpdateUserProfileView(generics.RetrieveUpdateAPIView):
+    queryset= User.objects.all()
+    serializer_class = UpdateProfileSerializer
+    permission_classes=[IsAuthenticated]
+    def get_object(self):
+        return self.request.user
+    
+

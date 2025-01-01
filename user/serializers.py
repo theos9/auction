@@ -59,3 +59,35 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError("OTP has expired.")
 
         return data
+    
+class UpdateProfileSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model=User
+        fields = ['phone_number','name','family','email','national_id','card_number','address']
+        extra_kwargs = {
+            'phone_number': {'required': False,'read_only':True},
+            'name': {'required': False},
+            'family': {'required': False},
+            'email': {'required': False},
+            'national_id': {'required': False},
+            'address': {'required': False},
+            'card_number': {'required': False},
+        }
+    
+    def validate_national_id(self, value):
+        if not value.isdigit() or len(value) !=10:
+            raise serializers.ValidationError("national id must be 10 digits long and must be a number")
+        return value
+
+    def validate_card_number(self, value):
+        if not value.isdigit() or len(value) != 16:
+            raise serializers.ValidationError('card number must be 16 digits and must be number')
+        return value
+
+    def validate_email(self, value):
+        if value and '@' not in value:
+            raise serializers.ValidationError('email field is invalid')
+        return value
+    
+

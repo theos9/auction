@@ -10,7 +10,7 @@ class BidInline(admin.TabularInline):
 @admin.register(User)
 class UserAdminPage(UserAdmin):
     change_password_form= AdminPasswordChangeForm
-    list_display=['national_id','name','family','phone_number','is_active']
+    list_display=['phone_number','national_id','name','family','is_active']
     list_editable=['is_active']
     search_fields=['national_id','phone_number','family']
     list_filter=['is_active']
