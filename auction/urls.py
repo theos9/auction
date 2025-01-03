@@ -24,6 +24,7 @@ urlpatterns = [
     path('profile/',include('user.urls')),
     path('auction/',include('auc.urls')),
     path('tickets/',include('ticket.urls')),
+    path('aboutus/',include('aboutus.urls')),
 
 ]
 if settings.DEBUG:
