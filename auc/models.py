@@ -2,6 +2,28 @@ from django.db import models
 from user.models import User
 from django.utils.html import format_html
 from django.utils import timezone
+from mptt.models import MPTTModel, TreeForeignKey
+
+class Category(MPTTModel):
+    name = models.CharField(max_length=255, unique=True, verbose_name='Category Name')
+    parent = TreeForeignKey(
+        'self', 
+        on_delete=models.CASCADE, 
+        null=True, 
+        blank=True, 
+        related_name='children', 
+        verbose_name='Parent Category'
+    )
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return self.name
 
 class AuctionImage(models.Model):
     image = models.ImageField(upload_to='data/auction_images/', verbose_name='image', null=True, blank=True)
@@ -18,10 +40,17 @@ class AuctionImage(models.Model):
 
     def __str__(self):
         return str(self.id)
-
 class AuctionModel(models.Model):
     title = models.CharField(max_length=50, verbose_name='title')
     description = models.TextField(verbose_name='description')
+    category = TreeForeignKey(
+        Category, 
+        on_delete=models.PROTECT, 
+        related_name='auctions', 
+        verbose_name='Category',
+        null=True,
+        blank=True
+    )
     starting_price = models.FloatField(verbose_name='starting price')
     current_price = models.FloatField(verbose_name='current price', default=0.0)
     increment_step = models.FloatField(verbose_name='increment step', default=50000)

@@ -24,12 +24,12 @@ class BidInline(admin.TabularInline):
         return False
 @admin.register(models.AuctionModel)
 class AuctionAdmin(admin.ModelAdmin):
-    list_display=['title','start_date','end_date','status','id']
+    list_display=['title','category','start_date','end_date','status','id']
     list_editable=['status']
     filter_horizontal = ('images',)
     fieldsets = (
         ('Auction title', {
-            'fields': ('title','description','images')
+            'fields': ('title','description','category','images')
         }),
         ('price', {
             'fields': ('starting_price','current_price','increment_step')
@@ -46,5 +46,9 @@ class AuctionAdmin(admin.ModelAdmin):
     )
     readonly_fields = ['offer_count','current_price','winner','bids_count']
     inlines = [BidInline] 
+
+@admin.register(models.Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display=['name','parent']
 
 
