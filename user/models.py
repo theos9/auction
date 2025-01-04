@@ -24,12 +24,12 @@ class UserManager(BaseUserManager):
     
 class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=11, unique=True,verbose_name='phone number')
-    name=models.CharField(max_length=20,verbose_name='name',null=False,blank=False)
-    family=models.CharField(max_length=20,verbose_name='last name',null=False,blank=False)
-    email=models.EmailField(verbose_name='email',unique=True,null=False,blank=False)
-    national_id=models.CharField(verbose_name='national id',max_length=10,unique=True,null=False,blank=False)
-    card_number=models.CharField(max_length=16,verbose_name='card number',null=False,blank=False)
-    address=models.CharField(max_length=255,verbose_name='address')
+    name=models.CharField(max_length=20,verbose_name='name',null=True,blank=False)
+    family=models.CharField(max_length=20,verbose_name='last name',null=True,blank=False)
+    email=models.EmailField(verbose_name='email',null=True,blank=True)
+    national_id=models.CharField(verbose_name='national id',max_length=10,unique=True,null=True,blank=False)
+    card_number=models.CharField(max_length=16,verbose_name='card number',null=True,blank=True)
+    address=models.CharField(max_length=255,verbose_name='address',null=True,blank=True)
     is_active = models.BooleanField(default=1,verbose_name='active/inactive')
     is_staff = models.BooleanField(default=False,verbose_name='staff')
     is_superuser = models.BooleanField(default=False,verbose_name='owner')
