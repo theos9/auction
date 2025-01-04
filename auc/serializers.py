@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import AuctionModel,Bid,AuctionImage
+from .models import AuctionModel,Bid,AuctionImage, Category
 
 class AuctionImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,3 +25,15 @@ class BidSerializers(serializers.ModelSerializer):
         bidder = self.context['request'].user
         bid = Bid.objects.create(auction=auction, bidder=bidder, **validated_data)
         return bid
+    
+class CategorySerializer(serializers.ModelSerializer):
+    children = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Category
+        fields = ['id', 'name', 'children']
+
+    def get_children(self,obj):
+        if obj.children.exists():
+            return CategorySerializer(obj.children.all(), many=True).data
+        return None

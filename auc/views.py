@@ -4,8 +4,8 @@ from rest_framework import status , generics
 from datetime import timedelta
 from user.models import AuctionsPermission
 from django.shortcuts import get_object_or_404
-from .models import AuctionModel
-from .serializers import AuctionSerializer,BidSerializers
+from .models import AuctionModel,Category
+from .serializers import AuctionSerializer,BidSerializers, CategorySerializer
 from django.utils import timezone
 
 class AuctionListView(generics.ListAPIView):
@@ -48,4 +48,8 @@ class CreateBidView(generics.CreateAPIView):
             auction.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class CategoryListView(generics.ListAPIView):
+    queryset = Category.objects.filter(parent=None).order_by('name')
+    serializer_class = CategorySerializer
         
