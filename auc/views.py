@@ -26,6 +26,8 @@ class CreateBidView(generics.CreateAPIView):
 
         if not auction.status or (auction.start_date>now) or (auction.end_date<now):
             return Response({'error':'This auction is not active'},status=status.HTTP_423_LOCKED)
+        if not user.name or not user.family or not user.email or not user.national_id or not user.card_number or not user.address:
+            return Response({'error':'your information is not complete!'},status=status.HTTP_406_NOT_ACCEPTABLE)
         
         auction_permission = AuctionsPermission.objects.filter(user=user, auctions=auction).first()
         if not auction_permission or not auction_permission.permission:
