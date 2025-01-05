@@ -84,10 +84,10 @@ class AuctionModel(models.Model):
             self.save()
 
     
-    def bids_count(self):
+    def bidders_count(self):
         return self.bidders.distinct().count()
     
-    bids_count.short_description='Number of bidders'
+    bidders_count.short_description='Number of bidders'
     def offer_count(self):
         return self.bidders.count()
     

@@ -38,13 +38,13 @@ class AuctionAdmin(admin.ModelAdmin):
             'fields': ('start_date','end_date')
         }),
         ('Participant details', {
-            'fields': ('winner','bids_count','offer_count')
+            'fields': ('winner','bidders_count','offer_count')
         }),
         ('status', {
             'fields': ('status',)
         }),
     )
-    readonly_fields = ['offer_count','current_price','winner','bids_count']
+    readonly_fields = ['offer_count','current_price','winner','bidders_count']
     inlines = [BidInline] 
 
 @admin.register(models.Category)
