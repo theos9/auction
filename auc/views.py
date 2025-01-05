@@ -7,13 +7,17 @@ from django.shortcuts import get_object_or_404
 from .models import AuctionModel,Category
 from .serializers import AuctionSerializer,BidSerializers, CategorySerializer
 from django.utils import timezone
+from .filters import AuctionFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 class AuctionListView(generics.ListAPIView):
-    queryset=AuctionModel.objects.all()
+    queryset=AuctionModel.objects.filter(status=True)
     serializer_class= AuctionSerializer
+    filter_backends=[DjangoFilterBackend]
+    filterset_class = AuctionFilter
 
 class AuctionDetailView(generics.RetrieveAPIView):
-    queryset = AuctionModel.objects.all()
+    queryset = AuctionModel.objects.filter(status=True)
     serializer_class = AuctionSerializer
 
 class CreateBidView(generics.CreateAPIView):
