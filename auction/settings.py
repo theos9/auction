@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'auc',
     'ticket',
     'aboutus',
+    'adminpage',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',

@@ -25,6 +25,7 @@ urlpatterns = [
     path('auction/',include('auc.urls')),
     path('tickets/',include('ticket.urls')),
     path('aboutus/',include('aboutus.urls')),
+    path('adminpage/',include('adminpage.urls')),
 
 ]
 if settings.DEBUG:
