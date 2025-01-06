@@ -5,15 +5,18 @@ class AuctionImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuctionImage
         fields = ['id', 'image']
+class Categorys(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'name']
 
 class AuctionSerializer(serializers.ModelSerializer):
     images = AuctionImageSerializer(many=True, read_only=True)
-    bids_count = serializers.IntegerField(read_only=True)
-    offer_count = serializers.IntegerField(read_only=True)
+    category= Categorys(read_only=True)
 
     class Meta:
         model = AuctionModel
-        fields = ['id', 'title', 'description', 'starting_price', 'current_price', 'increment_step', 'start_date', 'end_date', 'status', 'winner', 'images', 'bids_count', 'offer_count']
+        fields = ['id', 'title', 'description','category', 'starting_price', 'current_price', 'increment_step', 'start_date', 'end_date', 'status', 'winner', 'images', 'bidders_count', 'offer_count']
 
 class BidSerializers(serializers.ModelSerializer):
     class Meta:
