@@ -11,6 +11,10 @@ urlpatterns = [
     path('users/<int:pk>',views.UserDetailAdminViews.as_view(),name='user_detail'),
     path('otp/lists/',views.OtpListAdminViews.as_view(),name='otp_list'),
     path('otp/create/',views.OtpCreateAdminViews.as_view(),name='otp_create'),
-    path('otp/<int:pk>',views.OtpDetailAdminViews.as_view(),name='otp_detail')
+    path('otp/<int:pk>',views.OtpDetailAdminViews.as_view(),name='otp_detail'),
+    path('auction/permission/lists/',views.AuctionsPermissionListAdminViews.as_view(),name='AuctionsPermission_list'),
+    path('auction/permission/create/',views.AuctionsPermissionCreateAdminViews.as_view(),name='AuctionsPermission_create'),
+    path('auction/permission/<int:pk>',views.AuctionsPermissionDetailAdminViews.as_view(),name='AuctionsPermission_detail')
+
 
 ]
