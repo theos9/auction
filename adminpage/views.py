@@ -2,7 +2,7 @@ from django.contrib.auth.models import Permission, Group
 from rest_framework.response import Response
 from rest_framework import status , generics
 from rest_framework.permissions import IsAdminUser
-from user.models import User , OTP
+from user.models import User , OTP , AuctionsPermission
 from . import serializers 
 class PermissionListView(generics.ListAPIView):
     queryset = Permission.objects.all()
@@ -50,3 +50,18 @@ class OtpDetailAdminViews(generics.RetrieveUpdateDestroyAPIView):
     queryset = OTP.objects.all()
     permission_classes=[IsAdminUser]
     serializer_class = serializers.OtpListAdminSerializer
+
+class AuctionsPermissionListAdminViews(generics.ListAPIView):
+    queryset = AuctionsPermission.objects.all()
+    permission_classes =[IsAdminUser]
+    serializer_class = serializers.AuctionsPermissionListAdminSerializer
+
+class AuctionsPermissionCreateAdminViews(generics.CreateAPIView):
+    queryset = AuctionsPermission.objects.all()
+    permission_classes =[IsAdminUser]
+    serializer_class = serializers.AuctionsPermissionListAdminSerializer
+
+class AuctionsPermissionDetailAdminViews(generics.RetrieveUpdateDestroyAPIView):
+    queryset = AuctionsPermission.objects.all()
+    permission_classes =[IsAdminUser]
+    serializer_class = serializers.AuctionsPermissionListAdminSerializer
