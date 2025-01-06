@@ -8,5 +8,9 @@ urlpatterns = [
     path('users/groups/<int:pk>', views.GroupDetailView.as_view(), name='groups-detail'),
     path('users/lists/',views.UserListAdminViews.as_view(),name='user_list'),
     path('users/create/',views.UserCreateAdminViews.as_view(),name='user_create'),
-    path('users/<int:pk>',views.UserDetailAdminViews.as_view(),name='user_detail')
+    path('users/<int:pk>',views.UserDetailAdminViews.as_view(),name='user_detail'),
+    path('otp/lists/',views.OtpListAdminViews.as_view(),name='otp_list'),
+    path('otp/create/',views.OtpCreateAdminViews.as_view(),name='otp_create'),
+    path('otp/<int:pk>',views.OtpDetailAdminViews.as_view(),name='otp_detail')
+
 ]

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Permission, Group
 from rest_framework import serializers
-from user.models import User
+from user.models import User , OTP
 
 class UserListAdminSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,12 +11,12 @@ class UserListAdminSerializer(serializers.ModelSerializer):
         for field in self.fields.values():
             field.required = False
 
-class PermissionSerializer(serializers.ModelSerializer):
+class PermissionListAdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = Permission
         fields = '__all__'
 
-class GroupSerializer(serializers.ModelSerializer):
+class GroupListAdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = '__all__'
@@ -24,3 +24,8 @@ class GroupSerializer(serializers.ModelSerializer):
             'permissions':{'required':True},
             'name':{'required':True},
             }
+        
+class OtpListAdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= OTP
+        fields = '__all__'
