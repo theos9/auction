@@ -117,5 +117,3 @@ class Bid(models.Model):
     def __str__(self):
         return f'{self.bidder} - {self.bid_amount}'
 
-class user(models.Model):
-    name=models.CharField
