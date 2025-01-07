@@ -2,6 +2,7 @@ from django.contrib.auth.models import Permission, Group
 from rest_framework import serializers
 from user.models import User , OTP , AuctionsPermission
 from auc.models import AuctionModel , Bid ,AuctionImage, Category
+from ticket.models import TicketModel
 class AuctionsPermissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuctionsPermission
@@ -81,3 +82,17 @@ class CategoryListAdminSerializer(serializers.ModelSerializer):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.required = False
+
+class TicketListAdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TicketModel
+        fields = '__all__'
+        extra_kwargs={
+            'user':{'required': False,'read_only': True},
+            'subject':{'required': False,'read_only': True},
+            'message':{'required': False,'read_only': True},
+            'created_at':{'required': False,'read_only': True},
+            'answered_by':{'required': False,'read_only': True},
+            'answer':{'required': False,'read_only': False},
+            'answered_at':{'required': False,'read_only': True},
+        }
