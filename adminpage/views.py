@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status , generics
 from rest_framework.permissions import IsAdminUser
 from user.models import User , OTP , AuctionsPermission
-from auc.models import AuctionModel , Bid
+from auc.models import AuctionModel , Bid , AuctionImage, Category
 from . import serializers 
 class PermissionListView(generics.ListAPIView):
     queryset = Permission.objects.all()
@@ -96,3 +96,18 @@ class AuctionsBidDetailAdminViews(generics.RetrieveUpdateDestroyAPIView):
     queryset = Bid.objects.all()
     permission_classes = [IsAdminUser]
     serializer_class = serializers.AuctionsBidListAdminSerializer
+
+class AuctionImageListAdminViews(generics.ListAPIView):
+    queryset = AuctionImage.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = serializers.AuctionImageListAdminSerializer
+
+class AuctionImageCreateAdminViews(generics.CreateAPIView):
+    queryset = AuctionImage.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = serializers.AuctionImageListAdminSerializer
+
+class AuctionImageDetailAdminViews(generics.RetrieveUpdateDestroyAPIView):
+    queryset = AuctionImage.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = serializers.AuctionImageListAdminSerializer
