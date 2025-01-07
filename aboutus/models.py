@@ -20,10 +20,6 @@ class AboutUsModel(models.Model):
     def __str__(self):
         return str(self.id)
 
-    def save(self, *args, **kwargs):
-        if AboutUsModel.objects.exists() and not self.pk:
-            raise ValidationError("You can only have one entry in this table.")
-        super().save(*args, **kwargs)
     class Meta:
         verbose_name='about us'
         verbose_name_plural='about us page'
