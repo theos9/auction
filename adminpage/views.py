@@ -4,6 +4,8 @@ from rest_framework import status , generics
 from rest_framework.permissions import IsAdminUser
 from user.models import User , OTP , AuctionsPermission
 from auc.models import AuctionModel , Bid , AuctionImage, Category
+from ticket.models import TicketModel
+from django.utils.timezone import now
 from . import serializers 
 class PermissionListView(generics.ListAPIView):
     queryset = Permission.objects.all()
@@ -126,3 +128,20 @@ class CategoryDetailAdminViews(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     permission_classes = [IsAdminUser]
     serializer_class = serializers.CategoryListAdminSerializer
+
+class TicketListAdminViews(generics.ListAPIView):
+    queryset = TicketModel.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = serializers.TicketListAdminSerializer
+
+class TicketCreateAdminViews(generics.CreateAPIView):
+    queryset = TicketModel.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = serializers.TicketListAdminSerializer
+
+class TicketDetailAdminViews(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TicketModel.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = serializers.TicketListAdminSerializer
+    def perform_update(self, serializer):
+        serializer.save(answered_by=self.request.user,answered_at=now(),is_answered=True)
