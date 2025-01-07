@@ -3,6 +3,7 @@ from rest_framework import serializers
 from user.models import User , OTP , AuctionsPermission
 from auc.models import AuctionModel , Bid ,AuctionImage, Category
 from ticket.models import TicketModel
+from aboutus.models import AboutUsModel
 class AuctionsPermissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuctionsPermission
@@ -96,3 +97,12 @@ class TicketListAdminSerializer(serializers.ModelSerializer):
             'answer':{'required': False,'read_only': False},
             'answered_at':{'required': False,'read_only': True},
         }
+
+class AboutUsListAdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AboutUsModel
+        fields= '__all__'
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.required = False
