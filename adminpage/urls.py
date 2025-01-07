@@ -14,7 +14,9 @@ urlpatterns = [
     path('otp/<int:pk>',views.OtpDetailAdminViews.as_view(),name='otp_detail'),
     path('auction/permission/lists/',views.AuctionsPermissionListAdminViews.as_view(),name='AuctionsPermission_list'),
     path('auction/permission/create/',views.AuctionsPermissionCreateAdminViews.as_view(),name='AuctionsPermission_create'),
-    path('auction/permission/<int:pk>',views.AuctionsPermissionDetailAdminViews.as_view(),name='AuctionsPermission_detail')
-
+    path('auction/permission/<int:pk>',views.AuctionsPermissionDetailAdminViews.as_view(),name='AuctionsPermission_detail'),
+    path('auction/lists/',views.AuctionsListAdminViews.as_view(),name='Auctions_list'),
+    path('auction/create/',views.AuctionsCreateAdminViews.as_view(),name='Auctions_create'),
+    path('auction/<int:pk>',views.AuctionsDetailAdminViews.as_view(),name='Auctions_detail'),
 
 ]
