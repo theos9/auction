@@ -21,6 +21,10 @@ urlpatterns = [
     path('bids/lists/',views.AuctionsBidListAdminViews.as_view(),name='bid_list'),
     path('bids/create/',views.AuctionsBidCreateAdminViews.as_view(),name='bid_create'),
     path('bids/<int:pk>',views.AuctionsBidDetailAdminViews.as_view(),name='bid_detail'),
+    path('auction/images/lists/',views.AuctionImageListAdminViews.as_view(),name='AuctionImage_list'),
+    path('auction/images/create/',views.AuctionImageCreateAdminViews.as_view(),name='AuctionImage_create'),
+    path('auction/images/<int:pk>',views.AuctionImageDetailAdminViews.as_view(),name='AuctionImage_detail'),
+
 
 
 ]
