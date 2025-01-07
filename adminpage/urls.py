@@ -27,5 +27,8 @@ urlpatterns = [
     path('category/lists/',views.CategoryListAdminViews.as_view(),name='category_list'),
     path('category/create/',views.CategoryCreateAdminViews.as_view(),name='category_create'),
     path('category/<int:pk>',views.CategoryDetailAdminViews.as_view(),name='category_detail'),
+    path('ticket/lists/',views.TicketListAdminViews.as_view(),name='ticket_list'),
+    path('ticket/create/',views.TicketCreateAdminViews.as_view(),name='ticket_create'),
+    path('ticket/<int:pk>',views.TicketDetailAdminViews.as_view(),name='ticket_detail'),
 
 ]
