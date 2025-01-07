@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Permission, Group
 from rest_framework import serializers
 from user.models import User , OTP , AuctionsPermission
-from auc.models import AuctionModel , Bid
+from auc.models import AuctionModel , Bid ,AuctionImage, Category
 class AuctionsPermissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuctionsPermission
@@ -58,6 +58,15 @@ class AuctionsListAdminSerializer(serializers.ModelSerializer):
     bid = AuctionsBidListAdminSerializer(source='bids', many=True,read_only=True)
     class Meta:
         model= AuctionModel
+        fields= '__all__'
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.required = False
+
+class AuctionImageListAdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AuctionImage
         fields= '__all__'
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
