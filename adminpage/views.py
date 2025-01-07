@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAdminUser
 from user.models import User , OTP , AuctionsPermission
 from auc.models import AuctionModel , Bid , AuctionImage, Category
 from ticket.models import TicketModel
+from aboutus.models import AboutUsModel
 from django.utils.timezone import now
 from . import serializers 
 class PermissionListView(generics.ListAPIView):
@@ -145,3 +146,18 @@ class TicketDetailAdminViews(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.TicketListAdminSerializer
     def perform_update(self, serializer):
         serializer.save(answered_by=self.request.user,answered_at=now(),is_answered=True)
+
+class AboutUsListAdminViews(generics.ListAPIView):
+    queryset = AboutUsModel.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = serializers.AboutUsListAdminSerializer
+
+class AboutUsCreateAdminViews(generics.CreateAPIView):
+    queryset = AboutUsModel.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = serializers.AboutUsListAdminSerializer
+
+class AboutUsDetailAdminViews(generics.RetrieveUpdateDestroyAPIView):
+    queryset = AboutUsModel.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = serializers.AboutUsListAdminSerializer
