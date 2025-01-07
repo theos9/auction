@@ -111,3 +111,18 @@ class AuctionImageDetailAdminViews(generics.RetrieveUpdateDestroyAPIView):
     queryset = AuctionImage.objects.all()
     permission_classes = [IsAdminUser]
     serializer_class = serializers.AuctionImageListAdminSerializer
+
+class CategoryListAdminViews(generics.ListAPIView):
+    queryset = Category.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = serializers.CategoryListAdminSerializer
+
+class CategoryCreateAdminViews(generics.CreateAPIView):
+    queryset = Category.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = serializers.CategoryListAdminSerializer
+
+class CategoryDetailAdminViews(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = serializers.CategoryListAdminSerializer
