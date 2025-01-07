@@ -30,5 +30,9 @@ urlpatterns = [
     path('ticket/lists/',views.TicketListAdminViews.as_view(),name='ticket_list'),
     path('ticket/create/',views.TicketCreateAdminViews.as_view(),name='ticket_create'),
     path('ticket/<int:pk>',views.TicketDetailAdminViews.as_view(),name='ticket_detail'),
+    path('aboutus/lists/',views.AboutUsListAdminViews.as_view(),name='AboutUs_list'),
+    path('aboutus/create/',views.AboutUsCreateAdminViews.as_view(),name='AboutUs_create'),
+    path('aboutus/<int:pk>',views.AboutUsDetailAdminViews.as_view(),name='AboutUs_detail'),
+    
 
 ]
