@@ -66,7 +66,26 @@ class UpdateUserProfileView(generics.RetrieveUpdateAPIView):
     queryset= User.objects.all()
     serializer_class = UpdateProfileSerializer
     permission_classes=[IsAuthenticated]
+    
     def get_object(self):
         return self.request.user
+    
+    def perform_update(self, serializer):
+        data = self.request.data
+        
+        national_id = data.get('national_id')
+        if national_id and (not national_id.isdigit() or len(national_id) != 10):
+            return Response({'national_id': 'National ID must be 10 digits long and must be a number'})
+        
+        card_number = data.get('card_number')
+        if card_number and (not card_number.isdigit() or len(card_number) != 16):
+            return Response({'card_number': 'Card number must be 16 digits long and must be a number'})
+        
+        email = data.get('email')
+        if email and '@' not in email:
+            return Response({'email': 'Email field is invalid'})
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
 
