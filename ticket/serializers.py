@@ -5,12 +5,6 @@ class CreateTicketSerializer(serializers.ModelSerializer):
     class Meta:
         model=TicketModel
         fields= ['subject','message']
-
-    def validate(self, data):
-        user=self.context['request'].user
-        if not user.email:
-            raise serializers.ValidationError('you have not email')
-        return  data
     
     def create(self, validated_data):
         user=self.context['request'].user
