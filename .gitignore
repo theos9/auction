@@ -3,6 +3,14 @@
 *.pot
 *.pyc
 __pycache__
+auction/__pycache__
+auc/__pycache__
+user/__pycache__
+ticket/__pycache__
+data/about-us
+data/auction_images
+adminpage/__pycache__
+aboutus/__pycache__
 db.sqlite3
 media
 
