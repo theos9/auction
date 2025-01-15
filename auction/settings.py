@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'ticket',
     'aboutus',
     'adminpage',
+    'django_filters',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
