@@ -3,6 +3,10 @@ from user.models import User
 from django.utils.html import format_html
 from django.utils import timezone
 from mptt.models import MPTTModel, TreeForeignKey
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 class Category(MPTTModel):
     name = models.CharField(max_length=255, unique=True, verbose_name='Category Name')
@@ -116,4 +120,19 @@ class Bid(models.Model):
 
     def __str__(self):
         return f'{self.bidder} - {self.bid_amount}'
+
+@receiver(post_save, sender=AuctionModel)
+def auction_model_post_save(sender, instance, **kwargs):
+    from .serializers import AuctionSerializer
+    channel_layer = get_channel_layer()
+    group_name = f'auction_{instance.id}'
+    serializer = AuctionSerializer(instance)
+    serialized_data = serializer.data
+    async_to_sync(channel_layer.group_send)(
+        group_name,
+        {
+            'type': 'auction_update',
+            'message': serialized_data
+        }
+    )
 
