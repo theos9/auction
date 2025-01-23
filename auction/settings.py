@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
+    'drf_spectacular',
 ]
 
 REST_FRAMEWORK = {
@@ -181,3 +182,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # EMAIL_HOST_USER = 'parhamali57@gmail.com'
 # EMAIL_HOST_PASSWORD = ''
 # DEFAULT_FROM_EMAIL = 'Your App <parhamali57@gmail.com>'
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Auction API',
+    'DESCRIPTION': 'API documentation for the Auction project',
+    'VERSION': '1.0.0',
+    # ...other settings...
+}
